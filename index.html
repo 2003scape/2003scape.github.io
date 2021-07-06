@@ -1,1 +1,263 @@
-<body>hello world</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>2003Scape - Runescape by Andrew Gower</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div class="rsc-container">
+            <div class="rsc-border-top rsc-border-bar"></div>
+            <div class="rsc-wrap">
+                <div class="rsc-row">
+                    <header class="rsc-box rsc-col rsc-header">
+                        <h1>2003Scape Server & Client</h1>
+                        <a
+                            class="rsc-link rsc-small-block rsc-small-spaced"
+                            href="https://github.com/2003scape"
+                            >Source code</a
+                        >
+                    </header>
+                </div>
+                <div class="rsc-row">
+                    <div>
+                        <p>
+                            2003Scape is an archived port of the client and
+                            emulation of Jagex's
+                            <a class="rsc-link" href="https://runescape.com"
+                                >RuneScape</a
+                            >
+                            server written in JavaScript from the year 2003. The
+                            game server can run under
+                            <a class="rsc-link" href="https://nodejs.org/en/"
+                                >Node.js</a
+                            >
+                            or in a browser via
+                            <a
+                                class="rsc-link"
+                                href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API"
+                                >Web Workers</a
+                            >
+                            and
+                            <a
+                                class="rsc-link"
+                                href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API"
+                                >WebRTC</a
+                            >.
+                        </p>
+                        <p>
+                            <strong>Help</strong>:
+                            <a
+                                class="rsc-link"
+                                href="/map.html"
+                                >Map</a
+                            >
+                            &nbsp;|&nbsp;
+                            <a
+                                class="rsc-link"
+                                href="https://github.com/2003scape/rsc-server#commands"
+                                >::commands</a
+                            >
+                            &nbsp;|&nbsp;
+                            <a
+                                class="rsc-link"
+                                href="http://jamili.da3rx.com/rsc/items.html"
+                                >Item IDs</a
+                            >
+                            &nbsp;|&nbsp;
+                            <a
+                                class="rsc-link"
+                                href="http://jamili.da3rx.com/rsc/npcs.html"
+                                >NPC IDs</a
+                            >
+                            &nbsp;|&nbsp;
+                            <a
+                                class="rsc-link"
+                                href="http://jamili.da3rx.com/rsc/objects.html"
+                                >Game Object IDs</a
+                            >
+                        </p>
+                    </div>
+                </div>
+                <div class="rsc-row" style="margin-bottom: 8px">
+                    <div>
+                        <input
+                            id="webrtc-host"
+                            type="submit"
+                            value="Start Server"
+                            autocomplete="off"
+                        />
+
+                        <br />
+                        <br />
+
+                        <input
+                            id="toggle-client"
+                            type="submit"
+                            value="Show Client Settings"
+                        />
+                        &nbsp;
+                        <input
+                            id="toggle-webrtc"
+                            type="submit"
+                            value="Show WebRTC Settings"
+                        />
+                    </div>
+                </div>
+                <div class="rsc-row" id="client-settings" style="display: none">
+                    <fieldset style="background-color: #000; margin: 8px">
+                        <legend>Client Settings</legend>
+
+                        <div>
+                            <label for="client-server">
+                                Server (WebSocket):
+                            </label>
+
+                            <input
+                                id="client-server"
+                                class="rsc-input"
+                                type="text"
+                                value="localhost"
+                            />
+                        </div>
+
+                        <div>
+                            <label for="client-port">Port: </label>
+
+                            <input
+                                id="client-port"
+                                class="rsc-input"
+                                type="number"
+                                value="43595"
+                                min="1"
+                                max="65535"
+                                size="5"
+                            />
+                        </div>
+
+                        <p>
+                            <small>
+                                If WebRTC is enabled, the server and port are
+                                ignored.
+                            </small>
+                        </p>
+
+                        <div>
+                            <label for="client-members">
+                                Members (requires reload):
+                            </label>
+                            <input type="checkbox" id="client-members" />
+                        </div>
+
+                        <br />
+
+                        <h3>Enhancements (may require reload):</h3>
+
+                        <div id="client-enhancements"></div>
+
+                        <br />
+
+                        <input
+                            id="client-fullscreen"
+                            type="submit"
+                            value="Toggle Fullscreen"
+                        />
+                    </fieldset>
+                </div>
+                <div class="rsc-row" id="webrtc-settings" style="display: none">
+                    <fieldset style="background-color: #000; margin: 8px">
+                        <legend>WebRTC Settings</legend>
+
+                        <div>
+                            <label for="webrtc-offer">
+                                Offer (updates after peer connects):
+                            </label>
+                            <input
+                                id="webrtc-offer"
+                                class="rsc-input"
+                                type="text"
+                                autocomplete="off"
+                            />
+                        </div>
+
+                        <p>
+                            <small>
+                                Paste this offer to a friend if hosting, or
+                                paste your friend's offer and press
+                                <strong>Join Server</strong> if joining.
+                            </small>
+                        </p>
+
+                        <div>
+                            <label for="webrtc-answer">Answer: </label>
+                            <input
+                                id="webrtc-answer"
+                                class="rsc-input"
+                                type="text"
+                                autocomplete="off"
+                                disabled
+                            />
+                        </div>
+
+                        <p>
+                            <small>
+                                Paste their answer here and press
+                                <strong>Connect Peer</strong> if hosting, or
+                                paste this answer to the host if joining.
+                            </small>
+                        </p>
+
+                        <input
+                            id="webrtc-connect"
+                            type="submit"
+                            value="Connect Peer"
+                            autocomplete="off"
+                            disabled
+                        />
+
+                        <input
+                            id="webrtc-join"
+                            type="submit"
+                            value="Join Server"
+                            autocomplete="off"
+                        />
+                    </fieldset>
+                </div>
+                <div class="rsc-row">
+                    <div class="rsc-client-wrap">
+                        <div class="rsc-client-bar"></div>
+                        <div
+                            id="rsc-client"
+                            style="width: 512px; height: 334px"
+                        ></div>
+                        <div class="rsc-banner-wrap">
+                            <img
+                                id="security-banner"
+                                src="./banners/1.gif"
+                                alt="Security tip"
+                                style="width: 373px; height: 63px"
+                            /><img
+                                src="./real-banner.png"
+                                alt="Real music logo"
+                                style="width: 135px; height: 60px"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="rsc-footer">
+                This webpage and its contents is copyright 2003 Jagex Ltd<br /><a
+                    class="rsc-link"
+                    href="https://github.com/2003scape"
+                    >2003scape source code</a
+                >&nbsp;copyright 2021 and licensed under the&nbsp;<a
+                    class="rsc-link"
+                    href="https://www.gnu.org/licenses/agpl-3.0.html"
+                    >AGPL-3.0+</a
+                >
+            </footer>
+            <div class="rsc-border-bottom rsc-border-bar"></div>
+        </div>
+        <script src="./index.bundle.min.js"></script>
+    </body>
+</html>
